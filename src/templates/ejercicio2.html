@@ -25,16 +25,13 @@
 
     </div>
 
-    <div class="content ejercicio2">
-
-    </div>
-
 </body>
 
 <script>
 
     bt1 = document.querySelector('.bmas');
     bt2 = document.querySelector('.bmenos');
+    ej1 = document.querySelector('.ejercicio1');
 
     bt1.addEventListener('click', function(event) {
         bt1.classList.add('selected');
@@ -55,7 +52,25 @@
         let bSelected = document.querySelector('.selected').value;
         bSelected = bSelected == '+' ? 'true' : 'false';
 
-        
+        data = new FormData();
+        data.append('length', lengthValue);
+        data.append('above_fifty', bSelected);
+
+        fetch('/api/ejercicio2', {
+            method: 'POST',
+            body: data,
+        }).then(response => {
+            response.json().then(data => {
+
+                ej1 = `<h1>Top ${lengthValue} usuarios más críticos</h1>`;
+
+                users = data['users'];
+                users.forEach((user, index) => {
+                    ej1 += `<p>${index + 1}. ${user[0]} con ${user[1]}.</p>`;
+                });
+
+            });
+        })
     });
 
 </script>

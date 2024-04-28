@@ -16,6 +16,3 @@ def get_critical_users_clicked_spam(sampleLength: int, above_fifty_percent: bool
         "title" : f"Los {sampleLength} usuarios mas criticos que han pulsado {'mas' if above_fifty_percent else 'menos'} del 50% de spam",
         "xdata" : list(usuario_percent.itertuples(index=False, name=None))
     }
-    
-
-print(get_critical_users_clicked_spam(5, False))

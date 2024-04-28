@@ -6,10 +6,22 @@
     <title>Home</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='icons-minecraft-0.5.css') }}">
 </head>
 <body>
     {% include 'header.html' %}
-    
-    Sample body
+
+    <div class="content">
+
+        <a class="index" href="/ejercicio1"><i style="margin-bottom: 18px;" class="icon-minecraft icon-minecraft-wooden-pickaxe"></i> <h1 style="display: inline">Ejercicio 1</h1></a>
+        <p style="margin-bottom: 3rem;">Ver el top de usuarios más críticos y el de páginas desactualizadas.</p>
+
+        <a class="index" href="/ejercicio2"><i style="margin-bottom: 18px;" class="icon-minecraft icon-minecraft-stone-pickaxe"></i> <h1 style="display: inline">Ejercicio 2</h1></a>
+        <p style="margin-bottom: 3rem;">Top de usuarios críticos comparados con los que han clickado en correos de spam.</p>
+
+    </div>
 </body>
+<script>
+    const wooden_pickaxe = minecraftItems.get(270);
+</script>
 </html>

@@ -29,3 +29,8 @@ def ultimas_vulns(vulnerabilidades):
             res.append(content)
     return res
 
+def get_latest_n_vulnerabilities(num_vulns):
+    ultimas_vulnerabilidades = obtener_ultimas_vulnerabilidades(num_vulns)
+    return ultimas_vulns(ultimas_vulnerabilidades)
+
+

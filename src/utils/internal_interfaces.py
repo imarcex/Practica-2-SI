@@ -69,8 +69,5 @@ def __times_hash_been_leaked(hash_str: str):
             leaked_hash, ntimes = line.split(':')
             if leaked_hash == password_hash[5:]:
               return (leaked_hash, ntimes)
-    else:
-        print(f"Algo no ha ido bien con lo que deberia ser el hash {password_hash}")
-        return -1
 
-    return 0
+    return ("hash error", -1)

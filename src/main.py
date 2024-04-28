@@ -74,7 +74,7 @@ def logout():
     return redirect('/login?error=Session closed')
 
 
-@app.route('/api/ejercicio1')
+@app.route('/api/ejercicio1', methods=['POST'])
 @login_required
 def api_ej1():
     sample_len = request.form.get("length", default=5)
@@ -84,7 +84,7 @@ def api_ej1():
     return jsonify(data)
 
 
-@app.route('/api/ejercicio2')
+@app.route('/api/ejercicio2', methods=['POST'])
 @login_required
 def api_ej2():
     sample_len = request.form.get("length", default=5)
@@ -93,7 +93,7 @@ def api_ej2():
     data = get_critical_users_clicked_spam(sample_len, above_fifty)
     return jsonify(data)
 
-@app.route('/api/ejercicio4')
+@app.route('/api/ejercicio4', methods=['POST'])
 @login_required
 def api_ej4():
     passwd = request.form.get('password')
@@ -104,24 +104,24 @@ def api_ej4():
 @app.route('/ejercicio1')
 @login_required
 def ejercicio1():
-    return render_template('ejercicio1')
+    return render_template('ejercicio1.html')
 
 @app.route('/ejercicio2')
 @login_required
 def ejercicio2():
-    return render_template('ejercicio2')
+    return render_template('ejercicio2.html')
 
 @app.route('/ejercicio3')
 @login_required
 def ejercicio3():
-    return render_template('ejercicio3')
+    return render_template('ejercicio3.html')
 
 @app.route('/ejercicio4')
 @login_required
 def ejercicio4():
     passw_hash = __get_user_passwd_hash(session.get('username'))
     data = times_hash_been_leaked(passw_hash)
-    return render_template('ejercicio4', data=data)
+    return render_template('ejercicio4.html', data=data)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)

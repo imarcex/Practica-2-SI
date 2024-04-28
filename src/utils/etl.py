@@ -36,7 +36,8 @@ class ETL:
                             provincia TEXT,
                             permisos INTEGER,
                             fechas TEXT,
-                            ips TEXT
+                            ips TEXT,
+                            esCritico INTEGER
                             )''')
 
             # Tabla emails
@@ -77,11 +78,11 @@ class ETL:
                 for item in users:
                     for username, data in item.items():
                         self.cursor.execute('''INSERT INTO usuarios (username, \
-                            telefono, contrasena, provincia, permisos, fechas, ips)
-                            VALUES (?, ?, ?, ?, ?, ?, ?);''',
+                            telefono, contrasena, provincia, permisos, fechas, ips, esCritico)
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?);''',
                             (username, data['telefono'], data['contrasena'],
                              data['provincia'], data['permisos'], ' '.join(data['fechas']), \
-                                ' '.join(data['ips']))
+                                ' '.join(data['ips']), data['critico'])
                         )
 
                         self.cursor.execute('''INSERT INTO emails (usuario, \

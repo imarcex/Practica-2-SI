@@ -7,7 +7,7 @@ from os import path
 
 FILEPATH = path.dirname(path.abspath(__file__))
 LEGAL_DATA_PATH = f"{FILEPATH}/../data/legal_data_online.json"
-USERS_DATA_PATH = f"{FILEPATH}/../data/users_data_online.json"
+USERS_DATA_PATH = f"{FILEPATH}/../data/users_data_online_clasificado.json"
 ROCKYOU_PATH = f"{FILEPATH}/../data/rockyou-20.txt"
 DB_PATH = f"{FILEPATH}/../db/etl.db"
 API_URL = 'https://api.pwnedpasswords.com/range'

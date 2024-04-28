@@ -69,6 +69,7 @@ def handle_register():
     else:
         return redirect('/register?error=Username already in use')
 
+
 @app.route('/logout')
 def logout():
     session.pop('username', None)

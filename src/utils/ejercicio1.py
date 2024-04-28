@@ -4,7 +4,7 @@ def get_n_crtitical_users(sampleLength):
     critical_users = __get_all_critical_users()[:sampleLength]
 
     return {
-        "title" : f"Los {nusers} usuarios más críticos",
+        "title" : f"Los {sampleLength} usuarios más críticos",
         "xdata" : critical_users['username'].to_list(),
     }
 
@@ -15,6 +15,3 @@ def get_n_outdated_webs(sampleLength):
         "title" : f"Top {sampleLength} Páginas Web con más Políticas Desactualizadas",
         "xdata" : top_webs_politicas_desactualizadas['web'].to_list(),
     }
-
-print(get_n_crtitical_users(5))
-print(get_n_outdated_webs(5))

@@ -10,7 +10,7 @@ LEGAL_DATA_PATH = f"{FILEPATH}/../data/legal_data_online.json"
 USERS_DATA_PATH = f"{FILEPATH}/../data/users_data_online.json"
 ROCKYOU_PATH = f"{FILEPATH}/../data/rockyou-20.txt"
 DB_PATH = f"{FILEPATH}/../db/etl.db"
-API_URL = 'https://api.pwnedpasswords.com/range/'
+API_URL = 'https://api.pwnedpasswords.com/range'
 
 connector = sqlite3.connect(DB_PATH, check_same_thread=False)
 
@@ -48,15 +48,18 @@ def __get_n_outdated_webs(sampleLength):
     return top_webs_politicas_desactualizadas
 
 
-def check_is_password_leaked(password: str):
+def times_password_been_leaked(password: str):
     password_hash = hashlib.sha1(password.encode('utf-8')).hexdigest().upper()
 
-    response = requests.get(f"{API_URL/password_hash[:5]}")
+    url = f"{API_URL}/{password_hash[:5]}"
+    print(url)
+    response = requests.get(url)
+    print(response.text)
 
     if response.status_code == 200:
-        hash_list = response.text.splitlines()
-        for item in hash_list:
-            if item[0:35] == password_hash[5:]:
-              return True
+        for line in response.text.splitlines():
+            leaked_hash, ntimes = line.split(':')
+            if leaked_hash == password_hash[5:]:
+              return ntimes
 
-    return False
+    return 0

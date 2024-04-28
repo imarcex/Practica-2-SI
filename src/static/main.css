@@ -9,6 +9,7 @@
 body {
     margin: 0;
     line-height: inherit; 
+    background-color: #FAFFFD;
 }
 
 @font-face {
@@ -20,7 +21,7 @@ header {
     position: sticky;
     top: 0px;
     z-index: 30;
-    background-color: #297373;
+    background-color: #6096BA;
     color: white;
 }
 
@@ -178,4 +179,16 @@ header {
 
 .anotherLink a:hover {
     text-decoration: underline;
+}
+
+.content {
+    max-width: 70rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    margin-top: 3rem;
+}
+
+a { 
+    text-decoration: none;
 }

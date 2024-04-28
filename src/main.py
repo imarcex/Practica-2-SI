@@ -1,11 +1,11 @@
 import random
-import hashlib
 from flask import Flask, render_template, session, request, redirect, jsonify
 from utils.ejercicio1 import get_n_crtitical_users, get_n_outdated_webs
 from utils.ejercicio2 import get_critical_users_clicked_spam
 from utils.ejercicio4 import times_hash_been_leaked, times_password_been_leaked
 from utils.ejercicio3 import get_latest_vulns
-from utils.internal_interfaces import __get_user_passwd_hash
+from utils.ejercicio5 import linearRegression, decisionTree, randomForest
+from utils.internal_interfaces import __get_user_passwd_hash, np
 from functools import wraps
 from utils.etl import ETL
 
@@ -130,6 +130,33 @@ def ejercicio4():
     passw_hash = __get_user_passwd_hash(session.get('username'))
     data = times_hash_been_leaked(passw_hash)
     return render_template('ejercicio4.html', data=data)
+
+@app.route('/ejercicio5', methods=['POST'])
+@login_required
+def ejercicio5():
+    if request.method == 'POST':
+        username = request.form['username']
+        totalEmails = request.form['totalMails']
+        phishingEmails = request.form['phishingMails']
+        clickedEmails = request.form['clickedMails']
+        iamodel = request.form['outputType']
+
+        if iamodel == 'linear':
+            model = linearRegression()
+            prediction = model.predict(np.array([float(clickedEmails/phishingEmails)]))
+
+        elif iamodel == 'tree':
+            model = decisionTree()
+            prediction = model.predict(np.array([[totalEmails, phishingEmails, clickedEmails]]))
+
+        elif iamodel == 'forest':
+            model = randomForest()
+            prediction = model.predict(np.array([[totalEmails, phishingEmails, clickedEmails]]))
+        
+        if prediction == 1:
+            return render_template('ejercicio5.html', prediction=f'Usuario {username} critico')
+
+        return render_template('ejercicio5.html', prediction=f'Usuario {username} no critico')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)

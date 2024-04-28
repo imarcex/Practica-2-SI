@@ -49,7 +49,11 @@ def __get_n_outdated_webs(sampleLength):
 
 
 def times_password_been_leaked(password: str):
-    password_hash = hashlib.sha1(password.encode('utf-8')).hexdigest().upper()
+    password_hash = hashlib.sha1(password.encode('utf-8')).hexdigest()
+    times_hash_been_leaked(password_hash)
+
+def times_hash_been_leaked(hash_str: str):
+    password_hash = hash_str.upper()
 
     url = f"{API_URL}/{password_hash[:5]}"
     print(url)
@@ -61,5 +65,8 @@ def times_password_been_leaked(password: str):
             leaked_hash, ntimes = line.split(':')
             if leaked_hash == password_hash[5:]:
               return ntimes
+    else:
+        print(f"Algo no ha ido bien con lo que deberia ser el hash {password_hash}")
+        return -1
 
     return 0

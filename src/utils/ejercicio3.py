@@ -2,7 +2,7 @@ import requests
 
 API = 'https://cve.circl.lu/api/last'
 
-def obtener_ultimas_vulnerabilidades(num_vulnerabilidades=10):
+def __obtener_ultimas_vulnerabilidades(num_vulnerabilidades=10):
     url = API
     parametros = {'range': num_vulnerabilidades}
     
@@ -18,7 +18,7 @@ def obtener_ultimas_vulnerabilidades(num_vulnerabilidades=10):
         print("Error de conexión:", e)
         return None
 
-def ultimas_vulns(vulnerabilidades):
+def __ultimas_vulns(vulnerabilidades):
     res = []
     if vulnerabilidades:
         content = {}
@@ -29,8 +29,6 @@ def ultimas_vulns(vulnerabilidades):
             res.append(content)
     return res
 
-def get_latest_n_vulnerabilities(num_vulns):
-    ultimas_vulnerabilidades = obtener_ultimas_vulnerabilidades(num_vulns)
-    return ultimas_vulns(ultimas_vulnerabilidades)
-
-
+def get_latest_vulns():
+    ultimas_vulnerabilidades = __obtener_ultimas_vulnerabilidades()
+    return __ultimas_vulns(ultimas_vulnerabilidades)

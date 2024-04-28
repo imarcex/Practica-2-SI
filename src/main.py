@@ -4,6 +4,7 @@ from flask import Flask, render_template, session, request, redirect, jsonify
 from utils.ejercicio1 import get_n_crtitical_users, get_n_outdated_webs
 from utils.ejercicio2 import get_critical_users_clicked_spam
 from utils.ejercicio4 import times_hash_been_leaked, times_password_been_leaked
+from utils.ejercicio3 import get_latest_vulns
 from utils.internal_interfaces import __get_user_passwd_hash
 from functools import wraps
 from utils.etl import ETL
@@ -77,7 +78,7 @@ def logout():
 @app.route('/api/ejercicio1', methods=['POST'])
 @login_required
 def api_ej1():
-    sample_len = request.form.get("length", default=5)
+    sample_len = int(request.form.get("length", default=5))
     data = {}
     data['users'] = get_n_crtitical_users(sample_len)
     data['webs'] = get_n_outdated_webs(sample_len)
@@ -90,12 +91,19 @@ def api_ej2():
     sample_len = request.form.get("length", default=5)
     above_fifty = request.form.get("above_fifty", default=True)
 
-    data = get_critical_users_clicked_spam(sample_len, above_fifty)
+    data = get_critical_users_clicked_spam(int(sample_len), bool(above_fifty))
     return jsonify(data)
+
+
+@app.route('/api/ejercicio3', methods=['POST'])
+@login_required
+def api_ej3():
+    return jsonify(get_latest_vulns())
+
 
 @app.route('/api/ejercicio4', methods=['POST'])
 @login_required
-def _api_ej4():
+def api_ej4():
     passwd = request.form.get('password')
     data = times_password_been_leaked(passwd)
     return jsonify(data)

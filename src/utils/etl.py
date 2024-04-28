@@ -1,14 +1,9 @@
-import sqlite3
 import json
-from os import path
-
-filepath = path.dirname(path.abspath(__file__))
-LEGAL_DATA_PATH = f"{filepath}/../data/legal_data_online.json"
-USERS_DATA_PATH = f"{filepath}/../data/users_data_online.json"
+from utils.internal_interfaces import LEGAL_DATA_PATH, USERS_DATA_PATH, connector
 
 class ETL:
     def __init__ (self) -> None:
-        self.connector = sqlite3.connect('etl.db')
+        self.connector = connector
         self.cursor = self.connector.cursor()
 
         if self.__create_tables():
@@ -89,18 +84,3 @@ class ETL:
                              data['emails']['phishing'], \
                              data['emails']['cliclados'])
                         )
-
-                        for fecha in data['fechas']:
-                            self.cursor.execute('''INSERT INTO fechas (usuario, \
-                                fecha)
-                                VALUES (?, ?);''',
-                                (username, fecha)
-                            )
-
-                        if data['ips'] != "None":
-                            for ip in data['ips']:
-                                self.cursor.execute('''INSERT INTO ips\
-                                    (usuario, ip)
-                                    VALUES (?, ?);''',
-                                    (username, ip)
-                                )

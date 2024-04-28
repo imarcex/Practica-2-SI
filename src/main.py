@@ -96,13 +96,6 @@ def api_ej2():
 @app.route('/api/ejercicio4')
 @login_required
 def api_ej4():
-    passwd = __get_user_passwd_hash(session.get('username'))
-    data = times_hash_been_leaked(passwd) 
-    return jsonify(data)
-
-@app.route('/api/ejercicio4', methods=['POST'])
-@login_required
-def api_ej4():
     passwd = request.form.get('password')
     data = times_password_been_leaked(passwd)
     return jsonify(data)
@@ -123,10 +116,12 @@ def ejercicio2():
 def ejercicio3():
     return render_template('ejercicio3')
 
-@app.route('/ejercici4')
+@app.route('/ejercicio4')
 @login_required
 def ejercicio4():
-    return render_template('ejercicio4')
+    passw_hash = __get_user_passwd_hash(session.get('username'))
+    data = times_hash_been_leaked(passw_hash)
+    return render_template('ejercicio4', data=data)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)

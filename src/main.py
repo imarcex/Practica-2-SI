@@ -1,11 +1,26 @@
 import random
 from flask import Flask, render_template, session, request, redirect
+from utils.ejercicio2 import get_critical_users_clicked_spam
+from functools import wraps
 from utils.etl import ETL
 
 app = Flask(__name__)
 etl = ETL()
 
 app.secret_key = random.randbytes(32)
+
+def is_authenticated():
+    username = session.get('username')
+    return username and len(username.strip()) > 0
+
+def login_required(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        if not is_authenticated():
+            return redirect('/login?error=Unauthenticated')
+        return f(*args, **kwargs)
+    
+    return wrapper
 
 @app.route('/')
 def index():
@@ -50,6 +65,18 @@ def handle_register():
 def logout():
     session.pop('username', None)
     return redirect('/login?error=Session closed')
+
+def is_it_true(value):
+    return value.lower() == 'true'
+
+@app.route('/ejercicio2')
+@login_required
+def ejercicio2():
+    sample_len = request.args.get("amount", required='True', type=int, default=5)
+    above_fifty = request.args.get("above_fifty", type=is_it_true, default=True)
+
+    data = get_critical_users_clicked_spam(sample_len, above_fifty)
+    return render_template('ejercicio2', data=data)
 
 
 if __name__ == '__main__':

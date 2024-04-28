@@ -1,4 +1,5 @@
 import json
+import hashlib
 from utils.internal_interfaces import LEGAL_DATA_PATH, USERS_DATA_PATH, connector
 
 class ETL:
@@ -79,8 +80,8 @@ class ETL:
                             telefono, contrasena, provincia, permisos, fechas, ips)
                             VALUES (?, ?, ?, ?, ?, ?, ?);''',
                             (username, data['telefono'], data['contrasena'],
-                             data['provincia'], data['permisos'], data['fechas'], \
-                                data['ips'])
+                             data['provincia'], data['permisos'], ' '.join(data['fechas']), \
+                                ' '.join(data['ips']))
                         )
 
                         self.cursor.execute('''INSERT INTO emails (usuario, \
@@ -90,3 +91,23 @@ class ETL:
                              data['emails']['phishing'], \
                              data['emails']['cliclados'])
                         )
+    
+    def register(self, username: str, password: str) -> bool:
+        """
+        Register a new user, returns false if the usernam is in use, using prepared statements
+        """
+        query = "INSERT INTO login (username, password) VALUES (?, ?);"
+        try:
+            self.cursor.execute(query, (username, hashlib.sha1(password.encode()).hexdigest().upper()))
+            self.connector.commit()
+            return True
+        except:
+            return False
+        
+    def login(self, username: str, password: str) -> bool:
+        """
+        Check if the user and password are correct
+        """
+        query = "SELECT username FROM login WHERE username = ? AND password = ?;"
+        res = self.cursor.execute(query, (username, hashlib.sha1(password.encode()).hexdigest().upper()))
+        return res.fetchone() is not None

@@ -1,11 +1,11 @@
 import random
-from flask import Flask, render_template, session, request
+from flask import Flask, render_template, session, request, redirect
 from utils.etl import ETL
 
 app = Flask(__name__)
 etl = ETL()
 
-app.secret = random.randbytes(16)
+app.secret_key = random.randbytes(32)
 
 @app.route('/')
 def index():
@@ -23,16 +23,17 @@ def handle_login():
     username = request.form['username']
     password = request.form['password']
 
-    if username == 'admin' and password == 'admin':
+    if etl.login(username, password):
         session['username'] = username
-        return 'Login success'
+        return redirect('/')
     else:
-        return 'Login failed'
+        return redirect('/login?error=Invalid credentials')
 
 
 @app.route('/register')
 def register():
-    return render_template('register.html')
+    error = request.args.get('error')
+    return render_template('register.html', error=error)
 
 
 @app.route('/register', methods=['POST'])
@@ -40,14 +41,15 @@ def handle_register():
     username = request.form['username']
     password = request.form['password']
 
-    etl.register(username, password)
-    return 'Register success'
-
+    if etl.register(username, password):
+        return redirect('/login')
+    else:
+        return redirect('/register?error=Username already in use')
 
 @app.route('/logout')
 def logout():
     session.pop('username', None)
-    return 'Logout success'
+    return redirect('/')
 
 
 if __name__ == '__main__':

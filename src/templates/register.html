@@ -13,22 +13,22 @@
     <h2>Register</h2>
     {% if error %}
         <div class="error">{{ error }}</div>
-    {% endif %
+    {% endif %}
     <form action="/register" method="POST">
         <div class="field-container">
-            <input type="text" class="field" required="" placeholder="Username" />
+            <input id="username" name="username" type="text" class="field" required="" placeholder="Username" />
             <label class="floating-label">Username</label>
             <div class="field-underline"></div>
         </div>
         <div class="field-container">
-            <input type="password" class="field" required="" placeholder="Password" />
+            <input id="password" name="password" type="password" class="field" required="" placeholder="Password" />
             <label class="floating-label">Password</label>
             <div class="field-underline"></div>
         </div>
         <input class="button" type="submit" name="" value="Register" />
     </form>
     <div class="anotherLink">
-        <a href="/register" target="_blank">Register</a>
+        <a href="/login" target="_blank">Login</a>
     </div>
     </form>
 </div>

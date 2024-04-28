@@ -1,4 +1,4 @@
-from internal_interfaces import __get_all_critical_users, __get_n_outdated_webs
+from utils.internal_interfaces import __get_all_critical_users, __get_n_outdated_webs
 
 def get_n_crtitical_users(sampleLength):
     critical_users = __get_all_critical_users()[:sampleLength]

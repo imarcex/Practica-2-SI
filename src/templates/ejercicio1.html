@@ -6,15 +6,52 @@
     <title>Ejercicio 1 | CMI</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+
 </head>
 <body>
 
-    {% for idx, chart in enumerate(user_crit) %}
-    <h2>{{ user_crit['title'] }}</h2>
-    <canvas id="lineChart{{idx}}" width="900" height="400">
+    <div class="content">
+        <form id="lenghtForm" class="lengthForm" action="/api/ejercicio1" method="POST">
+            Selecciona la longitud del top: 
+            <input style="width: 4rem;" type="number" id="length" name="length" value="10" min="1" max="999">
+            <input type="submit" hidden />
+            <input type="submit" value="Submit">
+        </form>
+    </div>
 
-    </canvas>
+    <div class="content ejercicio1">
+
+    </div>
+
+    <div class="content ejercicio2">
+
+    </div>
 
 </body>
+
+<script>
+
+    ej1 = document.querySelector('.ejercicio1');
+    ej2 = document.querySelector('.ejercicio2');
+
+    document.querySelector('.lengthForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var lengthValue = document.getElementById('length').value;
+
+        fetch('/api/ejercicio1', {
+            method: 'POST',
+            body: lengthValue
+        }) .then(response => {
+            response.json().then(data => {
+                // print every entry of the json list
+                data.forEach(element => {
+                    cnt.innerHTML += '<p>' + element + '</p>';
+                });
+            })
+        })
+    })
+
+
+</script>
 </html>

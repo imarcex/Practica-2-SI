@@ -49,7 +49,7 @@ def handle_register():
 @app.route('/logout')
 def logout():
     session.pop('username', None)
-    return redirect('/')
+    return redirect('/login?error=Session closed')
 
 
 if __name__ == '__main__':

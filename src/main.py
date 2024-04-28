@@ -1,11 +1,12 @@
 import random
+import numpy as np
 from flask import Flask, render_template, session, request, redirect, jsonify
 from utils.ejercicio1 import get_n_crtitical_users, get_n_outdated_webs
 from utils.ejercicio2 import get_critical_users_clicked_spam
 from utils.ejercicio4 import times_hash_been_leaked, times_password_been_leaked
 from utils.ejercicio3 import get_latest_vulns
 from utils.ejercicio5 import linearRegression, decisionTree, randomForest
-from utils.internal_interfaces import __get_user_passwd_hash, np
+from utils.internal_interfaces import __get_user_passwd_hash
 from functools import wraps
 from utils.etl import ETL
 

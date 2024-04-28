@@ -8,7 +8,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error,accuracy_score
 from sklearn.impute import SimpleImputer
 from matplotlib import pyplot as plt
-from internal_interfaces import connector
+from utils.internal_interfaces import connector
 '''
 datos = pd.read_json('data/users_data_online_clasificado.json')
 usuarios_dict = {nombre: {

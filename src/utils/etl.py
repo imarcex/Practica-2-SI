@@ -46,6 +46,11 @@ class ETL:
                             cliclados INTEGER,
                             FOREIGN KEY (usuario) REFERENCES usuarios(username)
                             )''')
+            
+            self.cursor.execute('''CREATE TABLE login (
+                            username TEXT PRIMARY KEY,
+                            password TEXT
+                            )''')
             return True
         else:
             return False

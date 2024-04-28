@@ -89,7 +89,7 @@ def api_ej1():
 @login_required
 def api_ej2():
     sample_len = request.form.get("length", default=5)
-    above_fifty = request.form.get("above_fifty", default='true')
+    above_fifty = request.form.get("above_fifty", type=is_arg_true, default=True)
 
     data = get_critical_users_clicked_spam(int(sample_len), bool(above_fifty))
     return jsonify(data)

@@ -71,10 +71,11 @@ class ETL:
                 for item in users:
                     for username, data in item.items():
                         self.cursor.execute('''INSERT INTO usuarios (username, \
-                            telefono, contrasena, provincia, permisos)
-                            VALUES (?, ?, ?, ?, ?);''',
+                            telefono, contrasena, provincia, permisos, fechas, ips)
+                            VALUES (?, ?, ?, ?, ?, ?, ?);''',
                             (username, data['telefono'], data['contrasena'],
-                             data['provincia'], data['permisos'])
+                             data['provincia'], data['permisos'], data['fechas'], \
+                                data['ips'])
                         )
 
                         self.cursor.execute('''INSERT INTO emails (usuario, \

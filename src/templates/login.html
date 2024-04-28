@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | CMI</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+   
+<div class="box">
+    <h2>Login</h2>
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+    <form action="/login" method="POST">
+        <div class="field-container">
+            <input type="text" class="field" required="" placeholder="Username" />
+            <label class="floating-label">Username</label>
+            <div class="field-underline"></div>
+        </div>
+        <div class="field-container">
+            <input type="password" class="field" required="" placeholder="Password" />
+            <label class="floating-label">Password</label>
+            <div class="field-underline"></div>
+        </div>
+        <input class="button" type="submit" name="" value="Log in" />
+    </form>
+    <div class="anotherLink">
+        <a href="/register" target="_blank">Sign up</a>
+    </div>
+    </form>
+</div>
+
+</body>
+</html>

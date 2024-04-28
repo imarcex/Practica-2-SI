@@ -26,7 +26,7 @@ def __create_rainbow_table(fname: str):
 RAINBOWTABLE = __create_rainbow_table(ROCKYOU_PATH)
 
 def __get_all_users():
-    users = pd.read_sql_query("SELECT usuarios.username, usuarios.contrasena, emails.total, emails.cliclados FROM emails INNER JOIN usuarios ON emails.usuario = usuarios.username ORDER BY emails.cliclados DESC",connector)
+    users = pd.read_sql_query("SELECT usuarios.username, usuarios.contrasena, emails.phishing, emails.cliclados FROM emails INNER JOIN usuarios ON emails.usuario = usuarios.username ORDER BY emails.cliclados DESC",connector)
     if users.empty == True:
         print("La query ha fallado bro")
         exit(-1)

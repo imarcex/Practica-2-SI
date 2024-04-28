@@ -1,3 +1,6 @@
+from utils.etl import ETL
+etl = ETL()
+
 import random
 import numpy as np
 from flask import Flask, render_template, session, request, redirect, jsonify
@@ -8,10 +11,8 @@ from utils.ejercicio3 import get_latest_vulns
 from utils.ejercicio5 import linearRegression, decisionTree, randomForest
 from utils.internal_interfaces import __get_user_passwd_hash
 from functools import wraps
-from utils.etl import ETL
 
 app = Flask(__name__)
-etl = ETL()
 
 app.secret_key = random.randbytes(32)
 

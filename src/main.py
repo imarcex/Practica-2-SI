@@ -98,7 +98,7 @@ def api_ej2():
     return jsonify(data)
 
 
-@app.route('/api/ejercicio3', methods=['POST'])
+@app.route('/api/ejercicio3', methods=['GET'])
 @login_required
 def api_ej3():
     return jsonify(get_latest_vulns())

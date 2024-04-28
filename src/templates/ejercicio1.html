@@ -41,13 +41,12 @@
 
         fetch('/api/ejercicio1', {
             method: 'POST',
-            body: lengthValue
+            body: `length=${lengthValue}`
         }) .then(response => {
             response.json().then(data => {
                 // print every entry of the json list
-                data.forEach(element => {
-                    cnt.innerHTML += '<p>' + element + '</p>';
-                });
+                console.log(data);
+
             })
         })
     })

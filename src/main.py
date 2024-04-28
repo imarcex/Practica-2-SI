@@ -95,7 +95,7 @@ def api_ej2():
 
 @app.route('/api/ejercicio4', methods=['POST'])
 @login_required
-def api_ej4():
+def _api_ej4():
     passwd = request.form.get('password')
     data = times_password_been_leaked(passwd)
     return jsonify(data)

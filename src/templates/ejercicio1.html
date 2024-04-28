@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1 | CMI</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+    {% for idx, chart in enumerate(user_crit) %}
+    <h2>{{ user_crit['title'] }}</h2>
+    <canvas id="lineChart{{idx}}" width="900" height="400">
+
+    </canvas>
+
+</body>
+</html>

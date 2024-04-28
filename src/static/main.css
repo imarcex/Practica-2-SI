@@ -189,6 +189,9 @@ header {
     margin-top: 3rem;
 }
 
-a { 
+.index { 
     text-decoration: none;
+}
+.index:hover {
+    text-decoration: underline;
 }

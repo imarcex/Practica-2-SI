@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 2 | CMI</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+
+</head>
+<body>
+
+    <div class="content">
+        Mostrar datos que han pulsado <input class="bmas selected" type="button" value="+"><input class="bmenos" type="button" value="-"> del 50% de veces correos de spam 
+        <br>
+        <form style="margin-top: 5px;" id="lenghtForm" class="lengthForm" action="/api/ejercicio2" method="POST">
+            Selecciona la longitud del top: 
+            <input style="width: 4rem;" type="number" id="length" name="length" value="10" min="1" max="999">
+            <input type="submit" hidden />
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <div class="content ejercicio1">
+
+    </div>
+
+    <div class="content ejercicio2">
+
+    </div>
+
+</body>
+
+<script>
+
+    bt1 = document.querySelector('.bmas');
+    bt2 = document.querySelector('.bmenos');
+
+    bt1.addEventListener('click', function(event) {
+        bt1.classList.add('selected');
+        bt2.classList.remove('selected');
+    });
+
+    bt2.addEventListener('click', function(event) {
+        bt2.classList.add('selected');
+        bt1.classList.remove('selected');
+    });
+
+    document.querySelector('.lengthForm').addEventListener('submit', function(event) {
+
+        event.preventDefault();
+
+        var lengthValue = document.getElementById('length').value;
+
+        let bSelected = document.querySelector('.selected').value;
+        bSelected = bSelected == '+' ? 'true' : 'false';
+
+        
+    });
+
+</script>
+</html>

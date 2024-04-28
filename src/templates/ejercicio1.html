@@ -37,15 +37,28 @@
     document.querySelector('.lengthForm').addEventListener('submit', function(event) {
         event.preventDefault();
 
-        var lengthValue = document.getElementById('length').value;
+        var lengthValue = document.getElementById('length').value; 
+
+        let data = new FormData();
+        data.append('length', lengthValue);
 
         fetch('/api/ejercicio1', {
             method: 'POST',
-            body: `length=${lengthValue}`
+            body: data,
         }) .then(response => {
             response.json().then(data => {
-                // print every entry of the json list
-                console.log(data);
+
+                users = data['users'];
+                ej1.innerHTML = `<h1>Top ${lengthValue} usuarios más críticos</h1>`;
+                users.forEach((user, index) => {
+                    ej1.innerHTML += `<p>${index + 1}. ${user}</p>`;
+                });
+
+                webs = data['webs'];
+                ej2.innerHTML = `<h1>Top ${lengthValue} webs desactualizadas</h1>`;
+                webs.forEach((web, index) => {
+                    ej2.innerHTML += `<p>${index + 1}. ${web}</p>`;
+                });
 
             })
         })

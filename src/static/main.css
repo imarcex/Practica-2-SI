@@ -195,3 +195,28 @@ header {
 .index:hover {
     text-decoration: underline;
 }
+
+.bmas {
+    background-color: #358600;
+    color: white;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 3px;
+}
+
+.bmenos {
+    background-color: #A53F2B;
+    color: white;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 3px; 
+}
+
+.selected {
+    border: 2px solid black;
+}
+

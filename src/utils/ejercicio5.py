@@ -38,13 +38,13 @@ def linearRegression():
     LR.fit(X_train, y_train)
 
     # Estadisticas de la predicción
-    critical_y_pred = LR.predict(X_test)
-    print(f"Mean squared error: {mean_squared_error(y_test, critical_y_pred)}")
-    plt.scatter(X_test, y_test, color="black")
-    plt.plot(X_test, critical_y_pred, color="blue", linewidth=3)
-    plt.xticks(())
-    plt.yticks(())
-    plt.show()
+    #critical_y_pred = LR.predict(X_test)
+    #print(f"Mean squared error: {mean_squared_error(y_test, critical_y_pred)}")
+    #plt.scatter(X_test, y_test, color="black")
+    #plt.plot(X_test, critical_y_pred, color="blue", linewidth=3)
+    #plt.xticks(())
+    #plt.yticks(())
+    #plt.show()
     return LR
 
 

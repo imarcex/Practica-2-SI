@@ -144,14 +144,14 @@ def ejercicio5_get():
 def ejercicio5():
     if request.method == 'POST':
         username = request.form['username']
-        totalEmails = request.form['totalMails']
-        phishingEmails = request.form['phishingMails']
-        clickedEmails = request.form['clickedMails']
-        iamodel = request.form['outputType']
+        totalEmails = int(request.form['totalMails'])
+        phishingEmails = int(request.form['phishingMails'])
+        clickedEmails = int(request.form['clickedMails'])
+        iamodel = request.form['iamodel']
 
         if iamodel == 'linear':
             model = linearRegression()
-            prediction = model.predict(np.array([float(clickedEmails/phishingEmails)]))
+            prediction = model.predict(np.array([[float(clickedEmails/phishingEmails)]]))
 
         elif iamodel == 'tree':
             model = decisionTree()

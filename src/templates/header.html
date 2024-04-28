@@ -1,0 +1,15 @@
+<header>
+    <a href="/" class="logo">CMI</a>
+
+    {% if session['username'] %}
+    <nav>
+        <a href="/login">Login</a>
+        <a href="/Register">Register</a>
+    </nav>
+    {% else %}
+    <nav>
+        <a href="/logout">Logout</a>
+    </nav>
+    {% endif %}
+
+</header>

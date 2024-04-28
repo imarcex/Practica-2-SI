@@ -47,12 +47,16 @@ def __get_n_outdated_webs(sampleLength):
 
     return top_webs_politicas_desactualizadas
 
+def __get_user_passwd_hash(user: str):
+    query = "SELECT password FROM login WHERE username=?"
+    res = connector.cursor().execute(query, user)
+    return res.fetchone()
 
-def times_password_been_leaked(password: str):
+def __times_password_been_leaked(password: str):
     password_hash = hashlib.sha1(password.encode('utf-8')).hexdigest()
-    times_hash_been_leaked(password_hash)
+    __times_hash_been_leaked(password_hash)
 
-def times_hash_been_leaked(hash_str: str):
+def __times_hash_been_leaked(hash_str: str):
     password_hash = hash_str.upper()
 
     url = f"{API_URL}/{password_hash[:5]}"
@@ -64,7 +68,7 @@ def times_hash_been_leaked(hash_str: str):
         for line in response.text.splitlines():
             leaked_hash, ntimes = line.split(':')
             if leaked_hash == password_hash[5:]:
-              return ntimes
+              return (leaked_hash, ntimes)
     else:
         print(f"Algo no ha ido bien con lo que deberia ser el hash {password_hash}")
         return -1

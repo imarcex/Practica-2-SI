@@ -29,7 +29,3 @@ def ultimas_vulns(vulnerabilidades):
             res.append(content)
     return res
 
-
-# Obtener las últimas 10 vulnerabilidades
-ultimas_vulnerabilidades = obtener_ultimas_vulnerabilidades(10)
-print(ultimas_vulns(ultimas_vulnerabilidades))

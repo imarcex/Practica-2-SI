@@ -1,6 +1,10 @@
 import random
-from flask import Flask, render_template, session, request, redirect
+import hashlib
+from flask import Flask, render_template, session, request, redirect, jsonify
+from utils.ejercicio1 import get_n_crtitical_users, get_n_outdated_webs
 from utils.ejercicio2 import get_critical_users_clicked_spam
+from utils.ejercicio4 import times_hash_been_leaked, times_password_been_leaked
+from utils.internal_interfaces import __get_user_passwd_hash
 from functools import wraps
 from utils.etl import ETL
 
@@ -8,6 +12,9 @@ app = Flask(__name__)
 etl = ETL()
 
 app.secret_key = random.randbytes(32)
+
+def is_arg_true(value):
+    return value.lower() == 'true'
 
 def is_authenticated():
     username = session.get('username')
@@ -66,18 +73,60 @@ def logout():
     session.pop('username', None)
     return redirect('/login?error=Session closed')
 
-def is_it_true(value):
-    return value.lower() == 'true'
+
+@app.route('/api/ejercicio1')
+@login_required
+def api_ej1():
+    sample_len = request.form.get("length", default=5)
+    data = {}
+    data['users'] = get_n_crtitical_users(sample_len)
+    data['webs'] = get_n_outdated_webs(sample_len)
+    return jsonify(data)
+
+
+@app.route('/api/ejercicio2')
+@login_required
+def api_ej2():
+    sample_len = request.form.get("length", default=5)
+    above_fifty = request.form.get("above_fifty", default=True)
+
+    data = get_critical_users_clicked_spam(sample_len, above_fifty)
+    return jsonify(data)
+
+@app.route('/api/ejercicio4')
+@login_required
+def api_ej4():
+    passwd = __get_user_passwd_hash(session.get('username'))
+    data = times_hash_been_leaked(passwd) 
+    return jsonify(data)
+
+@app.route('/api/ejercicio4', methods=['POST'])
+@login_required
+def api_ej4():
+    passwd = request.form.get('password')
+    data = times_password_been_leaked(passwd)
+    return jsonify(data)
+    
+
+@app.route('/ejercicio1')
+@login_required
+def ejercicio1():
+    return render_template('ejercicio1')
 
 @app.route('/ejercicio2')
 @login_required
 def ejercicio2():
-    sample_len = request.args.get("amount", required='True', type=int, default=5)
-    above_fifty = request.args.get("above_fifty", type=is_it_true, default=True)
+    return render_template('ejercicio2')
 
-    data = get_critical_users_clicked_spam(sample_len, above_fifty)
-    return render_template('ejercicio2', data=data)
+@app.route('/ejercicio3')
+@login_required
+def ejercicio3():
+    return render_template('ejercicio3')
 
+@app.route('/ejercici4')
+@login_required
+def ejercicio4():
+    return render_template('ejercicio4')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)

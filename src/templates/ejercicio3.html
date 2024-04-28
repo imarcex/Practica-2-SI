@@ -11,14 +11,7 @@
 <body>
 
     <div class="content">
-        Mostrar datos que han pulsado <input class="bmas selected" type="button" value="+"><input class="bmenos" type="button" value="-"> del 50% de veces correos de spam 
-        <br>
-        <form style="margin-top: 5px;" id="lenghtForm" class="lengthForm" action="/api/ejercicio2" method="POST">
-            Selecciona la longitud del top: 
-            <input style="width: 4rem;" type="number" id="length" name="length" value="10" min="1" max="999">
-            <input type="submit" hidden />
-            <input type="submit" value="Submit">
-        </form>
+        CVE API en tiempo real (si no carga es por el limite de peticiones)
     </div>
 
     <div class="content ejercicio1">
@@ -37,9 +30,6 @@
                 return response.json();
             })
             .then(data => {
-                //users = data['users'];
-                //ej1.innerHTML = `<h1>Top ${lengthValue} usuarios más críticos</h1>`;
-                ej1.innerHTML = `<h3> ${data} </h3>`;
                 users.forEach((registro) => {
                     registro.forEach((cve, desc, timestamp) => {
                         ej1.innerHTML += `<p>[${timestamp}] ${cve}: ${desc}</p>`;

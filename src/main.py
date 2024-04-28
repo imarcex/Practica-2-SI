@@ -134,6 +134,11 @@ def ejercicio4():
     data = times_hash_been_leaked(passw_hash)
     return render_template('ejercicio4.html', data=data)
 
+@app.route('/ejercicio5')
+@login_required
+def ejercicio5_get():
+    return render_template('ejercicio5.html')
+
 @app.route('/ejercicio5', methods=['POST'])
 @login_required
 def ejercicio5():
@@ -157,9 +162,9 @@ def ejercicio5():
             prediction = model.predict(np.array([[totalEmails, phishingEmails, clickedEmails]]))
         
         if prediction == 1:
-            return render_template('ejercicio5.html', prediction=f'Usuario {username} critico')
+            return render_template('ejercicio5_data.html', prediction=f'Usuario {username} critico')
 
-        return render_template('ejercicio5.html', prediction=f'Usuario {username} no critico')
+        return render_template('ejercicio5_data.html', prediction=f'Usuario {username} no critico')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)

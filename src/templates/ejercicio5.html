@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 4 | CMI</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+
+</head>
+<body>
+
+    <!--
+        username = request.form['username']
+        totalEmails = request.form['totalMails']
+        phishingEmails = request.form['phishingMails']
+        clickedEmails = request.form['clickedMails']
+        iamodel = request.form['outputType']
+    -->
+    <div class="content">
+        <form action="/ejercicio5">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" value="{{ username }}" readonly>
+            <br>
+            <label for="totalEmails">Emails totales:</label>
+            <input type="number" id="totalEmails" name="totalEmails" value="{{ totalEmails }}" readonly>
+            <br>
+            <label for="phishingEmails">Emails de phishing:</label>
+            <input type="number" id="phishingEmails" name="phishingEmails" value="{{ phishingEmails }}" readonly>
+            <br>
+            <label for="clickedEmails">Emails clickados:</label>
+            <input type="number" id="clickedEmails" name="clickedEmails" value="{{ clickedEmails }}" readonly>
+            <br>
+            <label for="iamodel">Model de IA:</label>
+            <input type="text" id="iamodel" name="iamodel" value="{{ iamodel }}" readonly>
+            <br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+
+</body>
+
+</html>
